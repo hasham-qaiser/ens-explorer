@@ -1,0 +1,46 @@
+"use strict";
+/*
+ * ATTENTION: An "eval-source-map" devtool has been used.
+ * This devtool is neither made for production nor for readable output files.
+ * It uses "eval()" calls to create a separate source file with attached SourceMaps in the browser devtools.
+ * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
+ * or disable the default devtool with "devtool: false".
+ * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
+ */
+(() => {
+var exports = {};
+exports.id = "pages/api/getNftsForCollection";
+exports.ids = ["pages/api/getNftsForCollection"];
+exports.modules = {
+
+/***/ "alchemy-sdk":
+/*!******************************!*\
+  !*** external "alchemy-sdk" ***!
+  \******************************/
+/***/ ((module) => {
+
+module.exports = require("alchemy-sdk");
+
+/***/ }),
+
+/***/ "(api)/./pages/api/getNftsForCollection.js":
+/*!*******************************************!*\
+  !*** ./pages/api/getNftsForCollection.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ handler)\n/* harmony export */ });\n/* harmony import */ var alchemy_sdk__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! alchemy-sdk */ \"alchemy-sdk\");\n/* harmony import */ var alchemy_sdk__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(alchemy_sdk__WEBPACK_IMPORTED_MODULE_0__);\n\nasync function handler(req, res) {\n    const { address , pageKey , pageSize , chain  } = JSON.parse(req.body);\n    if (req.method !== \"POST\") {\n        res.status(405).send({\n            message: \"Only POST requests allowed\"\n        });\n        return;\n    }\n    console.log(chain);\n    const settings = {\n        apiKey: process.env.ALCHEMY_API_KEY,\n        network: alchemy_sdk__WEBPACK_IMPORTED_MODULE_0__.Network[chain]\n    };\n    const alchemy = new alchemy_sdk__WEBPACK_IMPORTED_MODULE_0__.Alchemy(settings);\n    try {\n        const nfts = await alchemy.nft.getNftsForContract(address, {\n            pageKey: pageKey ? pageKey : null,\n            pageSize: pageSize ? pageSize : null\n        });\n        const formattedNfts = nfts.nfts.map((nft)=>{\n            const { contract , title , tokenType , tokenId , description , media  } = nft;\n            return {\n                contract: contract.address,\n                symbol: contract.symbol,\n                media: media[0]?.gateway ? media[0]?.gateway : \"https://via.placeholder.com/500\",\n                collectionName: contract.openSea?.collectionName,\n                verified: contract.openSea?.safelistRequestStatus,\n                tokenType,\n                tokenId,\n                title,\n                description,\n                format: media[0]?.format ? media[0]?.format : \"png\"\n            };\n        });\n        const filteredNfts = formattedNfts.filter((nft)=>nft.title.length && nft.description.length && nft.media);\n        res.status(200).json({\n            nfts: filteredNfts.length ? filteredNfts : null,\n            pageKey: nfts.pageKey\n        });\n    // the rest of your code\n    } catch (e) {\n        console.warn(e);\n        res.status(500).send({\n            message: \"something went wrong, check the log in your terminal\"\n        });\n    }\n}\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiKGFwaSkvLi9wYWdlcy9hcGkvZ2V0TmZ0c0ZvckNvbGxlY3Rpb24uanMuanMiLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBQStDO0FBRWhDLGVBQWVFLFFBQVFDLEdBQUcsRUFBRUMsR0FBRyxFQUFFO0lBQzlDLE1BQU0sRUFBRUMsUUFBTyxFQUFFQyxRQUFPLEVBQUVDLFNBQVEsRUFBRUMsTUFBSyxFQUFFLEdBQUdDLEtBQUtDLEtBQUssQ0FBQ1AsSUFBSVEsSUFBSTtJQUNqRSxJQUFJUixJQUFJUyxNQUFNLEtBQUssUUFBUTtRQUN6QlIsSUFBSVMsTUFBTSxDQUFDLEtBQUtDLElBQUksQ0FBQztZQUFFQyxTQUFTO1FBQTZCO1FBQzdEO0lBQ0YsQ0FBQztJQUNEQyxRQUFRQyxHQUFHLENBQUNUO0lBQ1osTUFBTVUsV0FBVztRQUNmQyxRQUFRQyxRQUFRQyxHQUFHLENBQUNDLGVBQWU7UUFDbkNDLFNBQVN2QixnREFBTyxDQUFDUSxNQUFNO0lBQ3pCO0lBQ0EsTUFBTWdCLFVBQVUsSUFBSXZCLGdEQUFPQSxDQUFDaUI7SUFFNUIsSUFBSTtRQUNGLE1BQU1PLE9BQU8sTUFBTUQsUUFBUUUsR0FBRyxDQUFDQyxrQkFBa0IsQ0FBQ3RCLFNBQVM7WUFDekRDLFNBQVNBLFVBQVVBLFVBQVUsSUFBSTtZQUNqQ0MsVUFBVUEsV0FBV0EsV0FBVyxJQUFJO1FBQ3RDO1FBQ0EsTUFBTXFCLGdCQUFnQkgsS0FBS0EsSUFBSSxDQUFDSSxHQUFHLENBQUMsQ0FBQ0gsTUFBUTtZQUMzQyxNQUFNLEVBQUVJLFNBQVEsRUFBRUMsTUFBSyxFQUFFQyxVQUFTLEVBQUVDLFFBQU8sRUFBRUMsWUFBVyxFQUFFQyxNQUFLLEVBQUUsR0FBR1Q7WUFFcEUsT0FBTztnQkFDTEksVUFBVUEsU0FBU3pCLE9BQU87Z0JBQzFCK0IsUUFBUU4sU0FBU00sTUFBTTtnQkFDdkJELE9BQU9BLEtBQUssQ0FBQyxFQUFFLEVBQUVFLFVBQ2JGLEtBQUssQ0FBQyxFQUFFLEVBQUVFLFVBQ1YsaUNBQWlDO2dCQUNyQ0MsZ0JBQWdCUixTQUFTUyxPQUFPLEVBQUVEO2dCQUNsQ0UsVUFBVVYsU0FBU1MsT0FBTyxFQUFFRTtnQkFDNUJUO2dCQUNBQztnQkFDQUY7Z0JBQ0FHO2dCQUNBUSxRQUFRUCxLQUFLLENBQUMsRUFBRSxFQUFFTyxTQUFTUCxLQUFLLENBQUMsRUFBRSxFQUFFTyxTQUFTLEtBQUs7WUFDckQ7UUFDRjtRQUVBLE1BQU1DLGVBQWVmLGNBQWNnQixNQUFNLENBQ3ZDLENBQUNsQixNQUFRQSxJQUFJSyxLQUFLLENBQUNjLE1BQU0sSUFBSW5CLElBQUlRLFdBQVcsQ0FBQ1csTUFBTSxJQUFJbkIsSUFBSVMsS0FBSztRQUdsRS9CLElBQUlTLE1BQU0sQ0FBQyxLQUFLaUMsSUFBSSxDQUFDO1lBQ25CckIsTUFBTWtCLGFBQWFFLE1BQU0sR0FBR0YsZUFBZSxJQUFJO1lBQy9DckMsU0FBU21CLEtBQUtuQixPQUFPO1FBQ3ZCO0lBQ0Esd0JBQXdCO0lBQzFCLEVBQUUsT0FBT3lDLEdBQUc7UUFDVi9CLFFBQVFnQyxJQUFJLENBQUNEO1FBQ2IzQyxJQUFJUyxNQUFNLENBQUMsS0FBS0MsSUFBSSxDQUFDO1lBQ25CQyxTQUFTO1FBQ1g7SUFDRjtBQUNGLENBQUMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly9lbnMtZXhwbG9yZXIvLi9wYWdlcy9hcGkvZ2V0TmZ0c0ZvckNvbGxlY3Rpb24uanM/YmFhMCJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBOZXR3b3JrLCBBbGNoZW15IH0gZnJvbSBcImFsY2hlbXktc2RrXCI7XG5cbmV4cG9ydCBkZWZhdWx0IGFzeW5jIGZ1bmN0aW9uIGhhbmRsZXIocmVxLCByZXMpIHtcbiAgY29uc3QgeyBhZGRyZXNzLCBwYWdlS2V5LCBwYWdlU2l6ZSwgY2hhaW4gfSA9IEpTT04ucGFyc2UocmVxLmJvZHkpO1xuICBpZiAocmVxLm1ldGhvZCAhPT0gXCJQT1NUXCIpIHtcbiAgICByZXMuc3RhdHVzKDQwNSkuc2VuZCh7IG1lc3NhZ2U6IFwiT25seSBQT1NUIHJlcXVlc3RzIGFsbG93ZWRcIiB9KTtcbiAgICByZXR1cm47XG4gIH1cbiAgY29uc29sZS5sb2coY2hhaW4pO1xuICBjb25zdCBzZXR0aW5ncyA9IHtcbiAgICBhcGlLZXk6IHByb2Nlc3MuZW52LkFMQ0hFTVlfQVBJX0tFWSxcbiAgICBuZXR3b3JrOiBOZXR3b3JrW2NoYWluXSxcbiAgfTtcbiAgY29uc3QgYWxjaGVteSA9IG5ldyBBbGNoZW15KHNldHRpbmdzKTtcblxuICB0cnkge1xuICAgIGNvbnN0IG5mdHMgPSBhd2FpdCBhbGNoZW15Lm5mdC5nZXROZnRzRm9yQ29udHJhY3QoYWRkcmVzcywge1xuICAgICAgcGFnZUtleTogcGFnZUtleSA/IHBhZ2VLZXkgOiBudWxsLFxuICAgICAgcGFnZVNpemU6IHBhZ2VTaXplID8gcGFnZVNpemUgOiBudWxsLFxuICAgIH0pO1xuICAgIGNvbnN0IGZvcm1hdHRlZE5mdHMgPSBuZnRzLm5mdHMubWFwKChuZnQpID0+IHtcbiAgICAgIGNvbnN0IHsgY29udHJhY3QsIHRpdGxlLCB0b2tlblR5cGUsIHRva2VuSWQsIGRlc2NyaXB0aW9uLCBtZWRpYSB9ID0gbmZ0O1xuXG4gICAgICByZXR1cm4ge1xuICAgICAgICBjb250cmFjdDogY29udHJhY3QuYWRkcmVzcyxcbiAgICAgICAgc3ltYm9sOiBjb250cmFjdC5zeW1ib2wsXG4gICAgICAgIG1lZGlhOiBtZWRpYVswXT8uZ2F0ZXdheVxuICAgICAgICAgID8gbWVkaWFbMF0/LmdhdGV3YXlcbiAgICAgICAgICA6IFwiaHR0cHM6Ly92aWEucGxhY2Vob2xkZXIuY29tLzUwMFwiLFxuICAgICAgICBjb2xsZWN0aW9uTmFtZTogY29udHJhY3Qub3BlblNlYT8uY29sbGVjdGlvbk5hbWUsXG4gICAgICAgIHZlcmlmaWVkOiBjb250cmFjdC5vcGVuU2VhPy5zYWZlbGlzdFJlcXVlc3RTdGF0dXMsXG4gICAgICAgIHRva2VuVHlwZSxcbiAgICAgICAgdG9rZW5JZCxcbiAgICAgICAgdGl0bGUsXG4gICAgICAgIGRlc2NyaXB0aW9uLFxuICAgICAgICBmb3JtYXQ6IG1lZGlhWzBdPy5mb3JtYXQgPyBtZWRpYVswXT8uZm9ybWF0IDogXCJwbmdcIixcbiAgICAgIH07XG4gICAgfSk7XG5cbiAgICBjb25zdCBmaWx0ZXJlZE5mdHMgPSBmb3JtYXR0ZWROZnRzLmZpbHRlcihcbiAgICAgIChuZnQpID0+IG5mdC50aXRsZS5sZW5ndGggJiYgbmZ0LmRlc2NyaXB0aW9uLmxlbmd0aCAmJiBuZnQubWVkaWFcbiAgICApO1xuXG4gICAgcmVzLnN0YXR1cygyMDApLmpzb24oe1xuICAgICAgbmZ0czogZmlsdGVyZWROZnRzLmxlbmd0aCA/IGZpbHRlcmVkTmZ0cyA6IG51bGwsXG4gICAgICBwYWdlS2V5OiBuZnRzLnBhZ2VLZXksXG4gICAgfSk7XG4gICAgLy8gdGhlIHJlc3Qgb2YgeW91ciBjb2RlXG4gIH0gY2F0Y2ggKGUpIHtcbiAgICBjb25zb2xlLndhcm4oZSk7XG4gICAgcmVzLnN0YXR1cyg1MDApLnNlbmQoe1xuICAgICAgbWVzc2FnZTogXCJzb21ldGhpbmcgd2VudCB3cm9uZywgY2hlY2sgdGhlIGxvZyBpbiB5b3VyIHRlcm1pbmFsXCIsXG4gICAgfSk7XG4gIH1cbn1cbiJdLCJuYW1lcyI6WyJOZXR3b3JrIiwiQWxjaGVteSIsImhhbmRsZXIiLCJyZXEiLCJyZXMiLCJhZGRyZXNzIiwicGFnZUtleSIsInBhZ2VTaXplIiwiY2hhaW4iLCJKU09OIiwicGFyc2UiLCJib2R5IiwibWV0aG9kIiwic3RhdHVzIiwic2VuZCIsIm1lc3NhZ2UiLCJjb25zb2xlIiwibG9nIiwic2V0dGluZ3MiLCJhcGlLZXkiLCJwcm9jZXNzIiwiZW52IiwiQUxDSEVNWV9BUElfS0VZIiwibmV0d29yayIsImFsY2hlbXkiLCJuZnRzIiwibmZ0IiwiZ2V0TmZ0c0ZvckNvbnRyYWN0IiwiZm9ybWF0dGVkTmZ0cyIsIm1hcCIsImNvbnRyYWN0IiwidGl0bGUiLCJ0b2tlblR5cGUiLCJ0b2tlbklkIiwiZGVzY3JpcHRpb24iLCJtZWRpYSIsInN5bWJvbCIsImdhdGV3YXkiLCJjb2xsZWN0aW9uTmFtZSIsIm9wZW5TZWEiLCJ2ZXJpZmllZCIsInNhZmVsaXN0UmVxdWVzdFN0YXR1cyIsImZvcm1hdCIsImZpbHRlcmVkTmZ0cyIsImZpbHRlciIsImxlbmd0aCIsImpzb24iLCJlIiwid2FybiJdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///(api)/./pages/api/getNftsForCollection.js\n");
+
+/***/ })
+
+};
+;
+
+// load runtime
+var __webpack_require__ = require("../../webpack-api-runtime.js");
+__webpack_require__.C(exports);
+var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
+var __webpack_exports__ = (__webpack_exec__("(api)/./pages/api/getNftsForCollection.js"));
+module.exports = __webpack_exports__;
+
+})();
